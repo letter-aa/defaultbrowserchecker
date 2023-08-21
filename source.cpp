@@ -26,12 +26,22 @@ int main()
     TCHAR * result;
     int ok = RegViewKeyData(HKEY_CURRENT_USER,"ProgID",L"Software\\Microsoft\\Windows\\Shell\\Associations\\UrlAssociations\\https\\UserChoice", result);
     wstring preRes;
+    //string * resultConv = reinterpret_cast<string *>(result);
     if (wcscmp(result, L"MSEdgeHTM") == 0) {
         preRes = L"Microsoft Edge";
     }
+    else if (wcscmp(result, L"ChromeHTML") == 0) {
+        preRes = L"Google Chrome";
+    }
+    else if (wcscmp(result, L"FirefoxHTML") == 0) {
+        preRes = L"Firefox";
+    }
+    else if (wcscmp(wstring(result).substr(0, 8).c_str(), L"Opera GX") == 0) {
+        preRes = L"Opera GX";
+    }
     else {
         preRes = L"idk lol";
-    }
+    }    
     wstring result2 = L"Your default browser is " + preRes;
     MessageBox(NULL, result2.c_str(), TEXT("the default browser checker"), NULL);
 }
